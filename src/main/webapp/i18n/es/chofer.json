@@ -1,0 +1,22 @@
+{
+    "fratelliApp": {
+        "chofer" : {
+            "home": {
+                "title": "Chofers",
+                "createLabel": "Crear nuevo Chofer",
+                "createOrEditLabel": "Crear o editar Chofer"
+            },
+            "created": "Un nuevo Chofer ha sido creado con el identificador {{ param }}",
+            "updated": "Un Chofer ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Chofer ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Chofer {{ id }}?"
+            },
+            "detail": {
+                "title": "Chofer"
+            },
+            "nombre": "Nombre",
+            "legajo": "Legajo"
+        }
+    }
+}

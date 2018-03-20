@@ -1,0 +1,90 @@
+<div>
+    <h2>
+        <span jhiTranslate="fratelliApp.presupuesto.home.title">Presupuestos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-presupuesto" [routerLink]="['/', { outlets: { popup: ['presupuesto-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="fratelliApp.presupuesto.home.createLabel">
+            Create new Presupuesto
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="presupuestos">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.monto">Monto</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.cantidadPasajeros">Cantidad Pasajeros</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.origen">Origen</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.destino">Destino</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.cantidadDias">Cantidad Dias</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.hayMovimineto">Hay Movimineto</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.fechaViaje">Fecha Viaje</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.kilometros">Kilometros</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.estado">Estado</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.cliente">Cliente</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.chofer">Chofer</span></th>
+            <th><span jhiTranslate="fratelliApp.presupuesto.colectivo">Colectivo</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let presupuesto of presupuestos ;trackBy: trackId">
+                <td><a [routerLink]="['../presupuesto', presupuesto.id ]">{{presupuesto.id}}</a></td>
+                <td>{{presupuesto.monto}}</td>
+                <td>{{presupuesto.cantidadPasajeros}}</td>
+                <td>{{presupuesto.origen}}</td>
+                <td>{{presupuesto.destino}}</td>
+                <td>{{presupuesto.cantidadDias}}</td>
+                <td>{{presupuesto.hayMovimineto}}</td>
+                <td>{{presupuesto.fechaViaje | date:'medium'}}</td>
+                <td>{{presupuesto.kilometros}}</td>
+                <td jhiTranslate="{{'fratelliApp.EstadoPresupuestoEnum.' + presupuesto.estado}}">{{presupuesto.estado}}</td>
+                <td>
+                    <div *ngIf="presupuesto.cliente">
+                        <a [routerLink]="['../cliente', presupuesto.cliente?.id ]" >{{presupuesto.cliente?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="presupuesto.chofer">
+                        <a [routerLink]="['../chofer', presupuesto.chofer?.id ]" >{{presupuesto.chofer?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="presupuesto.colectivo">
+                        <a [routerLink]="['../colectivo', presupuesto.colectivo?.id ]" >{{presupuesto.colectivo?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../presupuesto', presupuesto.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'presupuesto/'+ presupuesto.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'presupuesto/'+ presupuesto.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

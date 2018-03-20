@@ -1,0 +1,96 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPresupuestoLabel" jhiTranslate="fratelliApp.presupuesto.home.createOrEditLabel">Create or edit a Presupuesto</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!presupuesto.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="presupuesto.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.monto" for="field_monto">Monto</label>
+            <input type="number" class="form-control" name="monto" id="field_monto"
+                [(ngModel)]="presupuesto.monto"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.cantidadPasajeros" for="field_cantidadPasajeros">Cantidad Pasajeros</label>
+            <input type="number" class="form-control" name="cantidadPasajeros" id="field_cantidadPasajeros"
+                [(ngModel)]="presupuesto.cantidadPasajeros"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.origen" for="field_origen">Origen</label>
+            <input type="text" class="form-control" name="origen" id="field_origen"
+                [(ngModel)]="presupuesto.origen"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.destino" for="field_destino">Destino</label>
+            <input type="text" class="form-control" name="destino" id="field_destino"
+                [(ngModel)]="presupuesto.destino"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.cantidadDias" for="field_cantidadDias">Cantidad Dias</label>
+            <input type="number" class="form-control" name="cantidadDias" id="field_cantidadDias"
+                [(ngModel)]="presupuesto.cantidadDias"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.hayMovimineto" for="field_hayMovimineto">Hay Movimineto</label>
+            <input type="checkbox" class="form-control" name="hayMovimineto" id="field_hayMovimineto"
+                [(ngModel)]="presupuesto.hayMovimineto"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.fechaViaje" for="field_fechaViaje">Fecha Viaje</label>
+            <div class="d-flex">
+                <input id="field_fechaViaje" type="datetime-local" class="form-control" name="fechaViaje" [(ngModel)]="presupuesto.fechaViaje"
+                  />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.kilometros" for="field_kilometros">Kilometros</label>
+            <input type="number" class="form-control" name="kilometros" id="field_kilometros"
+                [(ngModel)]="presupuesto.kilometros"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.estado" for="field_estado">Estado</label>
+            <select class="form-control" name="estado" [(ngModel)]="presupuesto.estado" id="field_estado" >
+                <option value="NO_CONFIRMADO">{{'fratelliApp.EstadoPresupuestoEnum.NO_CONFIRMADO' | translate}}</option>
+                <option value="CONFIRMADO">{{'fratelliApp.EstadoPresupuestoEnum.CONFIRMADO' | translate}}</option>
+                <option value="ANULADO">{{'fratelliApp.EstadoPresupuestoEnum.ANULADO' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.cliente" for="field_cliente">Cliente</label>
+            <select class="form-control" id="field_cliente" name="cliente" [(ngModel)]="presupuesto.cliente" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="clienteOption.id === presupuesto.cliente?.id ? presupuesto.cliente : clienteOption" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.chofer" for="field_chofer">Chofer</label>
+            <select class="form-control" id="field_chofer" name="chofer" [(ngModel)]="presupuesto.chofer" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="choferOption.id === presupuesto.chofer?.id ? presupuesto.chofer : choferOption" *ngFor="let choferOption of chofers; trackBy: trackChoferById">{{choferOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="fratelliApp.presupuesto.colectivo" for="field_colectivo">Colectivo</label>
+            <select class="form-control" id="field_colectivo" name="colectivo" [(ngModel)]="presupuesto.colectivo" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="colectivoOption.id === presupuesto.colectivo?.id ? presupuesto.colectivo : colectivoOption" *ngFor="let colectivoOption of colectivos; trackBy: trackColectivoById">{{colectivoOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,75 @@
+
+<div *ngIf="presupuesto">
+    <h2><span jhiTranslate="fratelliApp.presupuesto.detail.title">Presupuesto</span> {{presupuesto.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="fratelliApp.presupuesto.monto">Monto</span></dt>
+        <dd>
+            <span>{{presupuesto.monto}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.cantidadPasajeros">Cantidad Pasajeros</span></dt>
+        <dd>
+            <span>{{presupuesto.cantidadPasajeros}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.origen">Origen</span></dt>
+        <dd>
+            <span>{{presupuesto.origen}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.destino">Destino</span></dt>
+        <dd>
+            <span>{{presupuesto.destino}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.cantidadDias">Cantidad Dias</span></dt>
+        <dd>
+            <span>{{presupuesto.cantidadDias}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.hayMovimineto">Hay Movimineto</span></dt>
+        <dd>
+            <span>{{presupuesto.hayMovimineto}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.fechaViaje">Fecha Viaje</span></dt>
+        <dd>
+            <span>{{presupuesto.fechaViaje | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.kilometros">Kilometros</span></dt>
+        <dd>
+            <span>{{presupuesto.kilometros}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.estado">Estado</span></dt>
+        <dd>
+            <span jhiTranslate="{{'fratelliApp.EstadoPresupuestoEnum.' + presupuesto.estado}}">{{presupuesto.estado}}</span>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.cliente">Cliente</span></dt>
+        <dd>
+            <div *ngIf="presupuesto.cliente">
+                <a [routerLink]="['/cliente', presupuesto.cliente?.id]">{{presupuesto.cliente?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.chofer">Chofer</span></dt>
+        <dd>
+            <div *ngIf="presupuesto.chofer">
+                <a [routerLink]="['/chofer', presupuesto.chofer?.id]">{{presupuesto.chofer?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="fratelliApp.presupuesto.colectivo">Colectivo</span></dt>
+        <dd>
+            <div *ngIf="presupuesto.colectivo">
+                <a [routerLink]="['/colectivo', presupuesto.colectivo?.id]">{{presupuesto.colectivo?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'presupuesto/'+ presupuesto.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

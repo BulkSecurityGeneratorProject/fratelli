@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "razonSocial",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "telefono",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cuit",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20171228220034",
+    "entityTableName": "cliente",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}
