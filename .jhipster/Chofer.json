@@ -1,0 +1,19 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "legajo",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20171228220033",
+    "entityTableName": "chofer",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

@@ -1,0 +1,15 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "numeroInterno",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20171228220031",
+    "entityTableName": "colectivo",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

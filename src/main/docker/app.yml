@@ -1,0 +1,14 @@
+version: '2'
+services:
+    fratelli-app:
+        image: fratelli
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://fratelli-postgresql:5432/Fratelli
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+        ports:
+            - 8080:8080
+    fratelli-postgresql:
+        extends:
+            file: postgresql.yml
+            service: fratelli-postgresql

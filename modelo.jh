@@ -1,0 +1,35 @@
+entity Colectivo{
+	numeroInterno Long
+}
+entity Presupuesto{
+	monto Long
+    cantidadPasajeros Long 
+    origen String
+    destino String
+    cantidadDias Long
+    hayMovimineto Boolean
+    fechaViaje ZonedDateTime
+    kilometros Long 
+    estado EstadoPresupuestoEnum
+}
+enum EstadoPresupuestoEnum{
+	NO_CONFIRMADO, CONFIRMADO, ANULADO
+}
+entity Chofer {
+	nombre String
+    legajo Long
+}
+entity Cliente{
+	razonSocial String
+    telefono String
+    email String
+    cuit String
+}
+
+relationship ManyToOne{
+	Presupuesto{cliente} to Cliente
+    Presupuesto{chofer} to Chofer
+    Presupuesto{colectivo} to Colectivo
+}
+// Set service options to all except few
+service all with serviceImpl

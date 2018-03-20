@@ -1,0 +1,67 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "cliente",
+            "otherEntityName": "cliente",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "chofer",
+            "otherEntityName": "chofer",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "colectivo",
+            "otherEntityName": "colectivo",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "monto",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "cantidadPasajeros",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "origen",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "destino",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cantidadDias",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "hayMovimineto",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "fechaViaje",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "kilometros",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "estado",
+            "fieldType": "EstadoPresupuestoEnum",
+            "fieldValues": "NO_CONFIRMADO,CONFIRMADO,ANULADO"
+        }
+    ],
+    "changelogDate": "20171228220032",
+    "entityTableName": "presupuesto",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

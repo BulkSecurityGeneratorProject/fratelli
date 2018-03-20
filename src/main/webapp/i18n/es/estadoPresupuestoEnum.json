@@ -1,0 +1,10 @@
+{
+    "fratelliApp": {
+        "EstadoPresupuestoEnum" : {
+            "null": "",
+            "NO_CONFIRMADO": "NO_CONFIRMADO",
+            "CONFIRMADO": "CONFIRMADO",
+            "ANULADO": "ANULADO"
+        }
+    }
+}
