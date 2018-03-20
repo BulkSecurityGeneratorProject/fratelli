@@ -3,6 +3,7 @@ package com.fratelli.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fratelli.domain.Presupuesto;
 import com.fratelli.service.PresupuestoService;
+import com.fratelli.web.rest.errors.BadRequestAlertException;
 import com.fratelli.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class PresupuestoResource {
     public ResponseEntity<Presupuesto> createPresupuesto(@RequestBody Presupuesto presupuesto) throws URISyntaxException {
         log.debug("REST request to save Presupuesto : {}", presupuesto);
         if (presupuesto.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new presupuesto cannot already have an ID")).body(null);
+            throw new BadRequestAlertException("A new presupuesto cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Presupuesto result = presupuestoService.save(presupuesto);
         return ResponseEntity.created(new URI("/api/presupuestos/" + result.getId()))

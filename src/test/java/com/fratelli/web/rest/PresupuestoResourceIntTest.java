@@ -29,6 +29,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static com.fratelli.web.rest.TestUtil.sameInstant;
+import static com.fratelli.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -100,6 +101,7 @@ public class PresupuestoResourceIntTest {
         this.restPresupuestoMockMvc = MockMvcBuilders.standaloneSetup(presupuestoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -235,6 +237,8 @@ public class PresupuestoResourceIntTest {
 
         // Update the presupuesto
         Presupuesto updatedPresupuesto = presupuestoRepository.findOne(presupuesto.getId());
+        // Disconnect from session so that the updates on updatedPresupuesto are not directly saved in db
+        em.detach(updatedPresupuesto);
         updatedPresupuesto
             .monto(UPDATED_MONTO)
             .cantidadPasajeros(UPDATED_CANTIDAD_PASAJEROS)

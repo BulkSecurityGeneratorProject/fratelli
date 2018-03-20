@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -252,14 +253,14 @@ public class Presupuesto implements Serializable {
     public String toString() {
         return "Presupuesto{" +
             "id=" + getId() +
-            ", monto='" + getMonto() + "'" +
-            ", cantidadPasajeros='" + getCantidadPasajeros() + "'" +
+            ", monto=" + getMonto() +
+            ", cantidadPasajeros=" + getCantidadPasajeros() +
             ", origen='" + getOrigen() + "'" +
             ", destino='" + getDestino() + "'" +
-            ", cantidadDias='" + getCantidadDias() + "'" +
+            ", cantidadDias=" + getCantidadDias() +
             ", hayMovimineto='" + isHayMovimineto() + "'" +
             ", fechaViaje='" + getFechaViaje() + "'" +
-            ", kilometros='" + getKilometros() + "'" +
+            ", kilometros=" + getKilometros() +
             ", estado='" + getEstado() + "'" +
             "}";
     }

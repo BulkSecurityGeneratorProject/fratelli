@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ColectivoServiceImpl implements ColectivoService{
+public class ColectivoServiceImpl implements ColectivoService {
 
     private final Logger log = LoggerFactory.getLogger(ColectivoServiceImpl.class);
 
@@ -38,9 +38,9 @@ public class ColectivoServiceImpl implements ColectivoService{
     }
 
     /**
-     *  Get all the colectivos.
+     * Get all the colectivos.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -50,10 +50,10 @@ public class ColectivoServiceImpl implements ColectivoService{
     }
 
     /**
-     *  Get one colectivo by id.
+     * Get one colectivo by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -63,9 +63,9 @@ public class ColectivoServiceImpl implements ColectivoService{
     }
 
     /**
-     *  Delete the  colectivo by id.
+     * Delete the colectivo by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

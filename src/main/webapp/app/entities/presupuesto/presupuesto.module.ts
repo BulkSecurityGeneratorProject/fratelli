@@ -23,7 +23,7 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         FratelliSharedModule,
-        RouterModule.forRoot(ENTITY_STATES, { useHash: true })
+        RouterModule.forChild(ENTITY_STATES)
     ],
     declarations: [
         PresupuestoComponent,

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Colectivo } from './colectivo.model';
@@ -31,9 +32,10 @@ export class ColectivoDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.colectivoService.find(id).subscribe((colectivo) => {
-            this.colectivo = colectivo;
-        });
+        this.colectivoService.find(id)
+            .subscribe((colectivoResponse: HttpResponse<Colectivo>) => {
+                this.colectivo = colectivoResponse.body;
+            });
     }
     previousState() {
         window.history.back();

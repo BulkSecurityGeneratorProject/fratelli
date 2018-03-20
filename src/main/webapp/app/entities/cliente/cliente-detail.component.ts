@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Cliente } from './cliente.model';
@@ -31,9 +32,10 @@ export class ClienteDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.clienteService.find(id).subscribe((cliente) => {
-            this.cliente = cliente;
-        });
+        this.clienteService.find(id)
+            .subscribe((clienteResponse: HttpResponse<Cliente>) => {
+                this.cliente = clienteResponse.body;
+            });
     }
     previousState() {
         window.history.back();

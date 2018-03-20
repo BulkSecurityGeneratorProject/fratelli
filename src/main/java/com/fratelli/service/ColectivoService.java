@@ -17,24 +17,24 @@ public interface ColectivoService {
     Colectivo save(Colectivo colectivo);
 
     /**
-     *  Get all the colectivos.
+     * Get all the colectivos.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     List<Colectivo> findAll();
 
     /**
-     *  Get the "id" colectivo.
+     * Get the "id" colectivo.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     Colectivo findOne(Long id);
 
     /**
-     *  Delete the "id" colectivo.
+     * Delete the "id" colectivo.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     void delete(Long id);
 }

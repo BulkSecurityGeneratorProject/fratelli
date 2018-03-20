@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Cliente } from './cliente.model';
 import { ClienteService } from './cliente.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-cliente',
@@ -27,10 +26,10 @@ clientes: Cliente[];
 
     loadAll() {
         this.clienteService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.clientes = res.json;
+            (res: HttpResponse<Cliente[]>) => {
+                this.clientes = res.body;
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
     ngOnInit() {

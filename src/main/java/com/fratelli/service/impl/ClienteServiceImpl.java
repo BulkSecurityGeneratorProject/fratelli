@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ClienteServiceImpl implements ClienteService{
+public class ClienteServiceImpl implements ClienteService {
 
     private final Logger log = LoggerFactory.getLogger(ClienteServiceImpl.class);
 
@@ -38,9 +38,9 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     /**
-     *  Get all the clientes.
+     * Get all the clientes.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -50,10 +50,10 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     /**
-     *  Get one cliente by id.
+     * Get one cliente by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -63,9 +63,9 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     /**
-     *  Delete the  cliente by id.
+     * Delete the cliente by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

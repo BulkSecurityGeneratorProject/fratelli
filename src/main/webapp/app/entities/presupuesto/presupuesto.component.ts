@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Presupuesto } from './presupuesto.model';
 import { PresupuestoService } from './presupuesto.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-presupuesto',
@@ -27,10 +26,10 @@ presupuestos: Presupuesto[];
 
     loadAll() {
         this.presupuestoService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.presupuestos = res.json;
+            (res: HttpResponse<Presupuesto[]>) => {
+                this.presupuestos = res.body;
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
     ngOnInit() {

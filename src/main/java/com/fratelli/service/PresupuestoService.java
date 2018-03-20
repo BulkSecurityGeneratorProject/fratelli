@@ -17,24 +17,24 @@ public interface PresupuestoService {
     Presupuesto save(Presupuesto presupuesto);
 
     /**
-     *  Get all the presupuestos.
+     * Get all the presupuestos.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     List<Presupuesto> findAll();
 
     /**
-     *  Get the "id" presupuesto.
+     * Get the "id" presupuesto.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     Presupuesto findOne(Long id);
 
     /**
-     *  Delete the "id" presupuesto.
+     * Delete the "id" presupuesto.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     void delete(Long id);
 }

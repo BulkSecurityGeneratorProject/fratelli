@@ -4,6 +4,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -72,7 +73,7 @@ public class Colectivo implements Serializable {
     public String toString() {
         return "Colectivo{" +
             "id=" + getId() +
-            ", numeroInterno='" + getNumeroInterno() + "'" +
+            ", numeroInterno=" + getNumeroInterno() +
             "}";
     }
 }

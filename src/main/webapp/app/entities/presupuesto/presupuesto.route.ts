@@ -1,9 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { UserRouteAccessService } from '../../shared';
-import { JhiPaginationUtil } from 'ng-jhipster';
-
 import { PresupuestoComponent } from './presupuesto.component';
 import { PresupuestoDetailComponent } from './presupuesto-detail.component';
 import { PresupuestoPopupComponent } from './presupuesto-dialog.component';
