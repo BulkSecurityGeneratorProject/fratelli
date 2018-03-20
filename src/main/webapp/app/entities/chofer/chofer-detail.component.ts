@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Chofer } from './chofer.model';
@@ -31,9 +32,10 @@ export class ChoferDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.choferService.find(id).subscribe((chofer) => {
-            this.chofer = chofer;
-        });
+        this.choferService.find(id)
+            .subscribe((choferResponse: HttpResponse<Chofer>) => {
+                this.chofer = choferResponse.body;
+            });
     }
     previousState() {
         window.history.back();

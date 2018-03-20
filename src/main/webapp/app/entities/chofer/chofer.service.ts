@@ -1,66 +1,67 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { Chofer } from './chofer.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption } from '../../shared';
+
+export type EntityResponseType = HttpResponse<Chofer>;
 
 @Injectable()
 export class ChoferService {
 
-    private resourceUrl = SERVER_API_URL + 'api/chofers';
+    private resourceUrl =  SERVER_API_URL + 'api/chofers';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    create(chofer: Chofer): Observable<Chofer> {
+    create(chofer: Chofer): Observable<EntityResponseType> {
         const copy = this.convert(chofer);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.post<Chofer>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(chofer: Chofer): Observable<Chofer> {
+    update(chofer: Chofer): Observable<EntityResponseType> {
         const copy = this.convert(chofer);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.put<Chofer>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    find(id: number): Observable<Chofer> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<Chofer>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req?: any): Observable<HttpResponse<Chofer[]>> {
         const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get<Chofer[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Chofer[]>) => this.convertArrayResponse(res));
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    delete(id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: Chofer = this.convertItemFromServer(res.body);
+        return res.clone({body});
+    }
+
+    private convertArrayResponse(res: HttpResponse<Chofer[]>): HttpResponse<Chofer[]> {
+        const jsonResponse: Chofer[] = res.body;
+        const body: Chofer[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
+            body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, result, res.status);
+        return res.clone({body});
     }
 
     /**
      * Convert a returned JSON object to Chofer.
      */
-    private convertItemFromServer(json: any): Chofer {
-        const entity: Chofer = Object.assign(new Chofer(), json);
-        return entity;
+    private convertItemFromServer(chofer: Chofer): Chofer {
+        const copy: Chofer = Object.assign({}, chofer);
+        return copy;
     }
 
     /**

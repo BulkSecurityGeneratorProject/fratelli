@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ChoferServiceImpl implements ChoferService{
+public class ChoferServiceImpl implements ChoferService {
 
     private final Logger log = LoggerFactory.getLogger(ChoferServiceImpl.class);
 
@@ -38,9 +38,9 @@ public class ChoferServiceImpl implements ChoferService{
     }
 
     /**
-     *  Get all the chofers.
+     * Get all the chofers.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -50,10 +50,10 @@ public class ChoferServiceImpl implements ChoferService{
     }
 
     /**
-     *  Get one chofer by id.
+     * Get one chofer by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -63,9 +63,9 @@ public class ChoferServiceImpl implements ChoferService{
     }
 
     /**
-     *  Delete the  chofer by id.
+     * Delete the chofer by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

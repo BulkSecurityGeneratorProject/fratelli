@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.fratelli.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -79,6 +80,7 @@ public class ClienteResourceIntTest {
         this.restClienteMockMvc = MockMvcBuilders.standaloneSetup(clienteResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -194,6 +196,8 @@ public class ClienteResourceIntTest {
 
         // Update the cliente
         Cliente updatedCliente = clienteRepository.findOne(cliente.getId());
+        // Disconnect from session so that the updates on updatedCliente are not directly saved in db
+        em.detach(updatedCliente);
         updatedCliente
             .razonSocial(UPDATED_RAZON_SOCIAL)
             .telefono(UPDATED_TELEFONO)

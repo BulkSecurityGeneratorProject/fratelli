@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.fratelli.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -70,6 +71,7 @@ public class ColectivoResourceIntTest {
         this.restColectivoMockMvc = MockMvcBuilders.standaloneSetup(colectivoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -173,6 +175,8 @@ public class ColectivoResourceIntTest {
 
         // Update the colectivo
         Colectivo updatedColectivo = colectivoRepository.findOne(colectivo.getId());
+        // Disconnect from session so that the updates on updatedColectivo are not directly saved in db
+        em.detach(updatedColectivo);
         updatedColectivo
             .numeroInterno(UPDATED_NUMERO_INTERNO);
 

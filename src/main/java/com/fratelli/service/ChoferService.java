@@ -17,24 +17,24 @@ public interface ChoferService {
     Chofer save(Chofer chofer);
 
     /**
-     *  Get all the chofers.
+     * Get all the chofers.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     List<Chofer> findAll();
 
     /**
-     *  Get the "id" chofer.
+     * Get the "id" chofer.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     Chofer findOne(Long id);
 
     /**
-     *  Delete the "id" chofer.
+     * Delete the "id" chofer.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     void delete(Long id);
 }

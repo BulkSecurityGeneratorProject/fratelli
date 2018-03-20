@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Rx';
-import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs/Observable';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Presupuesto } from './presupuesto.model';
@@ -12,7 +12,6 @@ import { PresupuestoService } from './presupuesto.service';
 import { Cliente, ClienteService } from '../cliente';
 import { Chofer, ChoferService } from '../chofer';
 import { Colectivo, ColectivoService } from '../colectivo';
-import { ResponseWrapper } from '../../shared';
 
 @Component({
     selector: 'jhi-presupuesto-dialog',
@@ -43,11 +42,11 @@ export class PresupuestoDialogComponent implements OnInit {
     ngOnInit() {
         this.isSaving = false;
         this.clienteService.query()
-            .subscribe((res: ResponseWrapper) => { this.clientes = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Cliente[]>) => { this.clientes = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.choferService.query()
-            .subscribe((res: ResponseWrapper) => { this.chofers = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Chofer[]>) => { this.chofers = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
         this.colectivoService.query()
-            .subscribe((res: ResponseWrapper) => { this.colectivos = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+            .subscribe((res: HttpResponse<Colectivo[]>) => { this.colectivos = res.body; }, (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     clear() {
@@ -65,9 +64,9 @@ export class PresupuestoDialogComponent implements OnInit {
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Presupuesto>) {
-        result.subscribe((res: Presupuesto) =>
-            this.onSaveSuccess(res), (res: Response) => this.onSaveError());
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Presupuesto>>) {
+        result.subscribe((res: HttpResponse<Presupuesto>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Presupuesto) {

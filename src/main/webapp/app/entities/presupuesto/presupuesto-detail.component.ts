@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
+import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Presupuesto } from './presupuesto.model';
@@ -31,9 +32,10 @@ export class PresupuestoDetailComponent implements OnInit, OnDestroy {
     }
 
     load(id) {
-        this.presupuestoService.find(id).subscribe((presupuesto) => {
-            this.presupuesto = presupuesto;
-        });
+        this.presupuestoService.find(id)
+            .subscribe((presupuestoResponse: HttpResponse<Presupuesto>) => {
+                this.presupuesto = presupuestoResponse.body;
+            });
     }
     previousState() {
         window.history.back();

@@ -1,66 +1,67 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { Colectivo } from './colectivo.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { createRequestOption } from '../../shared';
+
+export type EntityResponseType = HttpResponse<Colectivo>;
 
 @Injectable()
 export class ColectivoService {
 
-    private resourceUrl = SERVER_API_URL + 'api/colectivos';
+    private resourceUrl =  SERVER_API_URL + 'api/colectivos';
 
-    constructor(private http: Http) { }
+    constructor(private http: HttpClient) { }
 
-    create(colectivo: Colectivo): Observable<Colectivo> {
+    create(colectivo: Colectivo): Observable<EntityResponseType> {
         const copy = this.convert(colectivo);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.post<Colectivo>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    update(colectivo: Colectivo): Observable<Colectivo> {
+    update(colectivo: Colectivo): Observable<EntityResponseType> {
         const copy = this.convert(colectivo);
-        return this.http.put(this.resourceUrl, copy).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+        return this.http.put<Colectivo>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    find(id: number): Observable<Colectivo> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
-            const jsonResponse = res.json();
-            return this.convertItemFromServer(jsonResponse);
-        });
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<Colectivo>(`${this.resourceUrl}/${id}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
     }
 
-    query(req?: any): Observable<ResponseWrapper> {
+    query(req?: any): Observable<HttpResponse<Colectivo[]>> {
         const options = createRequestOption(req);
-        return this.http.get(this.resourceUrl, options)
-            .map((res: Response) => this.convertResponse(res));
+        return this.http.get<Colectivo[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Colectivo[]>) => this.convertArrayResponse(res));
     }
 
-    delete(id: number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${id}`);
+    delete(id: number): Observable<HttpResponse<any>> {
+        return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response'});
     }
 
-    private convertResponse(res: Response): ResponseWrapper {
-        const jsonResponse = res.json();
-        const result = [];
+    private convertResponse(res: EntityResponseType): EntityResponseType {
+        const body: Colectivo = this.convertItemFromServer(res.body);
+        return res.clone({body});
+    }
+
+    private convertArrayResponse(res: HttpResponse<Colectivo[]>): HttpResponse<Colectivo[]> {
+        const jsonResponse: Colectivo[] = res.body;
+        const body: Colectivo[] = [];
         for (let i = 0; i < jsonResponse.length; i++) {
-            result.push(this.convertItemFromServer(jsonResponse[i]));
+            body.push(this.convertItemFromServer(jsonResponse[i]));
         }
-        return new ResponseWrapper(res.headers, result, res.status);
+        return res.clone({body});
     }
 
     /**
      * Convert a returned JSON object to Colectivo.
      */
-    private convertItemFromServer(json: any): Colectivo {
-        const entity: Colectivo = Object.assign(new Colectivo(), json);
-        return entity;
+    private convertItemFromServer(colectivo: Colectivo): Colectivo {
+        const copy: Colectivo = Object.assign({}, colectivo);
+        return copy;
     }
 
     /**

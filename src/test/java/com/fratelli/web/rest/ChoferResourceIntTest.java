@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.fratelli.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -73,6 +74,7 @@ public class ChoferResourceIntTest {
         this.restChoferMockMvc = MockMvcBuilders.standaloneSetup(choferResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
+            .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
 
@@ -180,6 +182,8 @@ public class ChoferResourceIntTest {
 
         // Update the chofer
         Chofer updatedChofer = choferRepository.findOne(chofer.getId());
+        // Disconnect from session so that the updates on updatedChofer are not directly saved in db
+        em.detach(updatedChofer);
         updatedChofer
             .nombre(UPDATED_NOMBRE)
             .legajo(UPDATED_LEGAJO);

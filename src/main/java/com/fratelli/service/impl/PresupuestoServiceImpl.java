@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class PresupuestoServiceImpl implements PresupuestoService{
+public class PresupuestoServiceImpl implements PresupuestoService {
 
     private final Logger log = LoggerFactory.getLogger(PresupuestoServiceImpl.class);
 
@@ -38,9 +38,9 @@ public class PresupuestoServiceImpl implements PresupuestoService{
     }
 
     /**
-     *  Get all the presupuestos.
+     * Get all the presupuestos.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -50,10 +50,10 @@ public class PresupuestoServiceImpl implements PresupuestoService{
     }
 
     /**
-     *  Get one presupuesto by id.
+     * Get one presupuesto by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -63,9 +63,9 @@ public class PresupuestoServiceImpl implements PresupuestoService{
     }
 
     /**
-     *  Delete the  presupuesto by id.
+     * Delete the presupuesto by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

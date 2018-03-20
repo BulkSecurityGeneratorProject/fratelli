@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Rx';
-import { JhiEventManager, JhiParseLinks, JhiPaginationUtil, JhiLanguageService, JhiAlertService } from 'ng-jhipster';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs/Subscription';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
 import { Chofer } from './chofer.model';
 import { ChoferService } from './chofer.service';
-import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { Principal } from '../../shared';
 
 @Component({
     selector: 'jhi-chofer',
@@ -27,10 +26,10 @@ chofers: Chofer[];
 
     loadAll() {
         this.choferService.query().subscribe(
-            (res: ResponseWrapper) => {
-                this.chofers = res.json;
+            (res: HttpResponse<Chofer[]>) => {
+                this.chofers = res.body;
             },
-            (res: ResponseWrapper) => this.onError(res.json)
+            (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
     ngOnInit() {

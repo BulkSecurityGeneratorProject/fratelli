@@ -17,24 +17,24 @@ public interface ClienteService {
     Cliente save(Cliente cliente);
 
     /**
-     *  Get all the clientes.
+     * Get all the clientes.
      *
-     *  @return the list of entities
+     * @return the list of entities
      */
     List<Cliente> findAll();
 
     /**
-     *  Get the "id" cliente.
+     * Get the "id" cliente.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     Cliente findOne(Long id);
 
     /**
-     *  Delete the "id" cliente.
+     * Delete the "id" cliente.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     void delete(Long id);
 }

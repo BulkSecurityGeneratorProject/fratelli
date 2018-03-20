@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpResponse } from '@angular/common/http';
 import { Colectivo } from './colectivo.model';
 import { ColectivoService } from './colectivo.service';
 
@@ -25,10 +26,12 @@ export class ColectivoPopupService {
             }
 
             if (id) {
-                this.colectivoService.find(id).subscribe((colectivo) => {
-                    this.ngbModalRef = this.colectivoModalRef(component, colectivo);
-                    resolve(this.ngbModalRef);
-                });
+                this.colectivoService.find(id)
+                    .subscribe((colectivoResponse: HttpResponse<Colectivo>) => {
+                        const colectivo: Colectivo = colectivoResponse.body;
+                        this.ngbModalRef = this.colectivoModalRef(component, colectivo);
+                        resolve(this.ngbModalRef);
+                    });
             } else {
                 // setTimeout used as a workaround for getting ExpressionChangedAfterItHasBeenCheckedError
                 setTimeout(() => {
@@ -43,10 +46,10 @@ export class ColectivoPopupService {
         const modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
         modalRef.componentInstance.colectivo = colectivo;
         modalRef.result.then((result) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         }, (reason) => {
-            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
+            this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true, queryParamsHandling: 'merge' });
             this.ngbModalRef = null;
         });
         return modalRef;

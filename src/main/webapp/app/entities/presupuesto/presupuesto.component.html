@@ -72,6 +72,7 @@
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'presupuesto/'+ presupuesto.id + '/edit'} }]"
                                 replaceUrl="true"
+                                queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
@@ -79,6 +80,7 @@
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'presupuesto/'+ presupuesto.id + '/delete'} }]"
                                 replaceUrl="true"
+                                queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>

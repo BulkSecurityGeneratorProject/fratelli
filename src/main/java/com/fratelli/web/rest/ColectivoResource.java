@@ -3,6 +3,7 @@ package com.fratelli.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fratelli.domain.Colectivo;
 import com.fratelli.service.ColectivoService;
+import com.fratelli.web.rest.errors.BadRequestAlertException;
 import com.fratelli.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class ColectivoResource {
     public ResponseEntity<Colectivo> createColectivo(@RequestBody Colectivo colectivo) throws URISyntaxException {
         log.debug("REST request to save Colectivo : {}", colectivo);
         if (colectivo.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new colectivo cannot already have an ID")).body(null);
+            throw new BadRequestAlertException("A new colectivo cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Colectivo result = colectivoService.save(colectivo);
         return ResponseEntity.created(new URI("/api/colectivos/" + result.getId()))
